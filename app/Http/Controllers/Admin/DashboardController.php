@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $checkouts = Checkout::with(['camp'])->get();
+        $checkouts = Checkout::with(['camp', 'user'])->get();
 
         return view('admin.dashboard', compact('checkouts'));
     }
