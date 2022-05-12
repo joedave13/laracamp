@@ -17,29 +17,41 @@
                             </a>
                         </div>
                     </div>
-                    {{-- <table class="table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th>User</th>
-                                <th>Camp</th>
-                                <th>Price</th>
-                                <th>Register Date</th>
-                                <th>Paid Status</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Percentage (%)</th>
+                                <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($checkouts as $checkout)
+                            @forelse ($discounts as $discount)
                             <tr>
-                                <td>{{ $checkout->user->name }}</td>
-                                <td>{{ $checkout->camp->title }}</td>
-                                <td>${{ $checkout->camp->price }}K</td>
-                                <td>{{ $checkout->created_at->format('M d, Y') }}</td>
+                                <td>{{ $discount->name }}</td>
                                 <td>
-                                    @if ($checkout->payment_status == 'paid')
-                                    <span class="badge bg-success">Paid</span>
-                                    @else
-                                    <span class="badge bg-warning">Waiting</span>
-                                    @endif
+                                    <span class="badge bg-primary">
+                                        {{ $discount->code }}
+                                    </span>
+                                </td>
+                                <td>{{ $discount->description }}</td>
+                                <td>{{ $discount->percentage }}</td>
+                                <td>
+                                    <a href="{{ route('admin.discount.edit', $discount->id) }}"
+                                        class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+                                </td>
+                                <td>
+                                    <form action="{{ route('admin.discount.destroy', $discount->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @empty
@@ -47,8 +59,10 @@
                                 <td colspan="6" class="text-center">Tidak ada data.</td>
                             </tr>
                             @endforelse
+
+                            {{ $discounts->links() }}
                         </tbody>
-                    </table> --}}
+                    </table>
                 </div>
             </div>
         </div>

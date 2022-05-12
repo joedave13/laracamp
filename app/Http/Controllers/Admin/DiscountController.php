@@ -16,7 +16,9 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        return view('admin.discount.index');
+        $discounts = Discount::paginate(5);
+
+        return view('admin.discount.index', compact('discounts'));
     }
 
     /**
