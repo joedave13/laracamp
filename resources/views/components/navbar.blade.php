@@ -38,7 +38,7 @@
                         </li>
                         @if (Auth::user()->is_admin)
                         <li>
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">Discount</a>
+                            <a href="{{ route('admin.discount.index') }}" class="dropdown-item">Discount</a>
                         </li>
                         @endif
                         <li>
