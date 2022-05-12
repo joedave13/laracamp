@@ -7,6 +7,7 @@ use App\Http\Requests\User\Checkout\Store;
 use App\Mail\Checkout\AfterCheckout;
 use App\Models\Camp;
 use App\Models\Checkout;
+use App\Models\Discount;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,15 @@ class CheckoutController extends Controller
         $user->address = $data['address'];
         $user->save();
 
+        if ($request->discount) {
+            $discount = Discount::where('code', $request->discount)->first();
+            $data['discount_id'] = $discount->id;
+            $data['discount_percentage'] = $discount->percentage;
+        }
+
         $checkout = Checkout::create($data);
+
+        return $checkout;
         $this->getSnapRedirect($checkout);
 
         Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
