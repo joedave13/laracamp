@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Discount\Store;
+use App\Http\Requests\Admin\Discount\Update;
 use App\Models\Discount;
 use Illuminate\Http\Request;
 
@@ -67,7 +68,7 @@ class DiscountController extends Controller
      */
     public function edit(Discount $discount)
     {
-        //
+        return view('admin.discount.edit', compact('discount'));
     }
 
     /**
@@ -77,9 +78,15 @@ class DiscountController extends Controller
      * @param  \App\Models\Discount  $discount
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Discount $discount)
+    public function update(Update $request, Discount $discount)
     {
-        //
+        $data = $request->except(['_method', '_token']);
+
+        $discount->update($data);
+
+        $request->session()->flash('success', 'Discount updated successfully!');
+
+        return redirect()->route('admin.discount.index');
     }
 
     /**
