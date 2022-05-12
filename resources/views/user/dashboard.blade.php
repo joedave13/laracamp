@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             <strong>
-                                Rp. {{ $checkout->total }}
+                                Rp. {{ number_format($checkout->total, 0, ',', '.') }}
                                 <br>
                                 @if ($checkout->discount_id)
                                 <span class="badge bg-success">
