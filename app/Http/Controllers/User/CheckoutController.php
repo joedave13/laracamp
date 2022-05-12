@@ -82,7 +82,6 @@ class CheckoutController extends Controller
 
         $checkout = Checkout::create($data);
 
-        return $checkout;
         $this->getSnapRedirect($checkout);
 
         Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
@@ -147,16 +146,30 @@ class CheckoutController extends Controller
 
         $checkout->midtrans_booking_code = $orderId;
 
-        $transaction_details = [
-            'order_id' => $orderId,
-            'gross_amount' => $price
-        ];
-
         $item_details[] = [
             'id' => $orderId,
             'price' => $price,
             'quantity' => 1,
             'name' => "Payment for {$checkout->camp->title} Camp"
+        ];
+
+        $discount_price = 0;
+        if ($checkout->discount) {
+            $discount_price = $price * $checkout->discount_percentage / 100;
+
+            $item_details[] = [
+                'id' => $checkout->discount->code,
+                'price' => -$discount_price,
+                'quantity' => 1,
+                'name' => "Discount {$checkout->discount->name} ({$checkout->discount_percentage})"
+            ];
+        }
+
+        $total = $price - $discount_price;
+
+        $transaction_details = [
+            'order_id' => $orderId,
+            'gross_amount' => $total
         ];
 
         $userData = [
@@ -187,6 +200,7 @@ class CheckoutController extends Controller
         try {
             $paymentUrl = Snap::createTransaction($midtrans_param)->redirect_url;
             $checkout->midtrans_url = $paymentUrl;
+            $checkout->total = $total;
             $checkout->save();
 
             return $paymentUrl;
