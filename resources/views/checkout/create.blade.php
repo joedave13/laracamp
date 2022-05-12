@@ -23,7 +23,8 @@
                                 {{ $camp->title }}
                             </h1>
                             <p class="description">
-                                Bootcamp ini akan mengajak Anda untuk belajar penuh mulai dari pengenalan dasar sampai membangun sebuah projek asli
+                                Bootcamp ini akan mengajak Anda untuk belajar penuh mulai dari pengenalan dasar sampai
+                                membangun sebuah projek asli
                             </p>
                         </div>
                     </div>
@@ -33,42 +34,62 @@
                             @csrf
                             <div class="mb-4">
                                 <label class="form-label">Full Name</label>
-                                <input name="name" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') ?? Auth::user()->name }}" required>
+                                <input name="name" type="text"
+                                    class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                    value="{{ old('name') ?? Auth::user()->name }}" required>
                                 @if ($errors->has('name'))
                                 <small class="text-danger">{{ $errors->first('name') }}</small>
                                 @endif
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Email Address</label>
-                                <input name="email" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ Auth::user()->email }}" readonly>
+                                <input name="email" type="email"
+                                    class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                    value="{{ Auth::user()->email }}" readonly>
                                 @if ($errors->has('email'))
                                 <small class="text-danger">{{ $errors->first('email') }}</small>
                                 @endif
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Occupation</label>
-                                <input name="occupation" type="text" class="form-control {{ $errors->has('occupation') ? 'is-invalid' : '' }}" value="{{ old('occupation') ?? Auth::user()->occupation }}" required>
+                                <input name="occupation" type="text"
+                                    class="form-control {{ $errors->has('occupation') ? 'is-invalid' : '' }}"
+                                    value="{{ old('occupation') ?? Auth::user()->occupation }}" required>
                                 @if ($errors->has('occupation'))
                                 <small class="text-danger">{{ $errors->first('occupation') }}</small>
                                 @endif
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Phone</label>
-                                <input name="phone" type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" value="{{ old('phone') ?? Auth::user()->phone }}" required>
+                                <input name="phone" type="text"
+                                    class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
+                                    value="{{ old('phone') ?? Auth::user()->phone }}" required>
                                 @if ($errors->has('phone'))
                                 <small class="text-danger">{{ $errors->first('phone') }}</small>
                                 @endif
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Address</label>
-                                <input name="address" type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" value="{{ old('address') ?? Auth::user()->address }}" required>
+                                <input name="address" type="text"
+                                    class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}"
+                                    value="{{ old('address') ?? Auth::user()->address }}" required>
                                 @if ($errors->has('address'))
                                 <small class="text-danger">{{ $errors->first('address') }}</small>
                                 @endif
                             </div>
+                            <div class="mb-4">
+                                <label class="form-label">Discount Code</label>
+                                <input name="discount" type="text"
+                                    class="form-control {{ $errors->has('discount') ? 'is-invalid' : '' }}"
+                                    value="{{ old('discount') }}">
+                                @if ($errors->has('discount'))
+                                <small class="text-danger">{{ $errors->first('discount') }}</small>
+                                @endif
+                            </div>
                             <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                             <p class="text-center subheader mt-4">
-                                <img src="{{ asset('images/ic_secure.svg') }}" alt=""> Your payment is secure and encrypted.
+                                <img src="{{ asset('images/ic_secure.svg') }}" alt=""> Your payment is secure and
+                                encrypted.
                             </p>
                         </form>
                     </div>
